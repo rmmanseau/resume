@@ -1,0 +1,19 @@
+version: "3"
+
+networks:
+  web:
+    external: true
+
+services:
+  resume:
+    image: nginx
+    volumes:
+      - ./src:/usr/share/nginx/html
+    networks:
+      - web
+    labels:
+      - traefik.http.routers.resume.rule=Host(`manseau.dev`,`www.manseau.dev`)
+      - traefik.http.routers.resume.tls=true
+      - traefik.http.routers.resume.tls.certresolver=lets-encrypt
+      - traefik.port=80
+
